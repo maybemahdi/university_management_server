@@ -10,7 +10,7 @@ app.use(cors());
 // application routes
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Car Store is Running");
+  res.send("Uni Management is Running");
 });
 
 export default app;
