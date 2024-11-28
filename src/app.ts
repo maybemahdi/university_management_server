@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import StudentRoutes from "./app/modules/student/student.route";
 
 const app: Application = express();
 
@@ -7,10 +8,23 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-// application routes
+// get started
+const getRoot = (req: Request, res: Response) => {
+  res.send("University Management is Running");
+};
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Uni Management is Running");
-});
+// application routes
+const routes = [
+  {
+    path: "/",
+    destination: getRoot,
+  },
+  {
+    path: "/api/v1/students",
+    destination: StudentRoutes,
+  },
+];
+
+routes.forEach((route) => app.use(route.path, route.destination));
 
 export default app;
