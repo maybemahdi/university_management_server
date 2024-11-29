@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { z } from "zod";
 
 const NameSchema = z.object({
@@ -32,10 +33,12 @@ const LocalGuardianSchema = z.object({
     .string()
     .min(1, "Local Guardian Occupation is required"),
 });
+const objectIdValidator = z.custom((value) => Types.ObjectId.isValid(value), {
+  message: "Invalid ObjectId",
+});
 
-export const StudentSchema = z.object({
-  id: z.string().optional(),
-  user: z.string().min(1, "User ID is Required"),
+export const StudentValidationSchema = z.object({
+  user: objectIdValidator,
   name: NameSchema,
   gender: z.enum(["male", "female", "other"]),
   dateOfBirth: z.string().min(1, "Date of Birth is required"),

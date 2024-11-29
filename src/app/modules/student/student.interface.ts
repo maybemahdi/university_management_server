@@ -28,7 +28,7 @@ export interface ILocalGuardian {
 }
 
 export interface IStudent {
-  id?: string;
+  id: string;
   user: Types.ObjectId;
   name: IName;
   gender: string;
