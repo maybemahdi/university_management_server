@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.services";
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { password, ...studentData } = req.body;
     const result = await UserService.createStudent(password, studentData);
@@ -17,15 +21,7 @@ const createStudent = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({
-        error: error,
-      });
-    } else {
-      res.status(500).json({
-        error: error,
-      });
-    }
+    next(error);
   }
 };
 
