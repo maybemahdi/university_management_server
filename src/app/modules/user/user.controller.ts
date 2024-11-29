@@ -12,11 +12,13 @@ const createStudent = async (
     if (result) {
       res.status(200).json({
         success: true,
+        message: "Student Created Successfully",
         data: result,
       });
     } else {
       res.status(500).json({
         success: false,
+        message: "Student isn't Created",
         data: result,
       });
     }
