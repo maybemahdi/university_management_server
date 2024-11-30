@@ -32,7 +32,7 @@ export interface IStudent {
   user: Types.ObjectId;
   name: IName;
   gender: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   email: string;
   contactNo: string;
   emergencyContactNo: string;
@@ -41,6 +41,6 @@ export interface IStudent {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImage: string;
-  admissionSemester: string;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
 }

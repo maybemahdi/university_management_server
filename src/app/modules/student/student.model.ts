@@ -73,7 +73,7 @@ const StudentSchema = new Schema<IStudent>(
     name: NameSchema,
     gender: { type: String, enum: { values: ["male", "female", "other"] } },
     dateOfBirth: {
-      type: String,
+      type: Date,
       required: [true, "Date of Birth is Required"],
     },
     email: { type: String, required: [true, "Email is Required"] },
@@ -91,8 +91,10 @@ const StudentSchema = new Schema<IStudent>(
       required: [true, "Profile Image is Required"],
     },
     admissionSemester: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, "Admission Semester is Required"],
+      unique: true,
+      ref: "AcademicSemester",
     },
     isDeleted: { type: Boolean, default: false },
   },

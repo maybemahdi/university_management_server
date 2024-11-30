@@ -37,8 +37,7 @@ const objectIdValidator = z.custom((value) => Types.ObjectId.isValid(value), {
   message: "Invalid ObjectId",
 });
 
-export const StudentValidationSchema = z.object({
-  user: objectIdValidator,
+const CreateStudentValidationSchema = z.object({
   name: NameSchema,
   gender: z.enum(["male", "female", "other"]),
   dateOfBirth: z.string().min(1, "Date of Birth is required"),
@@ -50,6 +49,10 @@ export const StudentValidationSchema = z.object({
   guardian: GuardianSchema,
   localGuardian: LocalGuardianSchema,
   profileImage: z.string().min(1, "Profile Image is required"),
-  admissionSemester: z.string().min(1, "Admission Semester is required"),
+  admissionSemester: objectIdValidator,
   isDeleted: z.boolean().optional().default(false),
 });
+
+export const StudentValidations = {
+  CreateStudentValidationSchema,
+};
