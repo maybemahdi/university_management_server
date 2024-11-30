@@ -4,6 +4,7 @@ import StudentRoutes from "./app/modules/student/student.route";
 import UserRoutes from "./app/modules/user/user.route";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
+import router from "./app/routes";
 
 const app: Application = express();
 
@@ -19,18 +20,7 @@ const getRoot = (req: Request, res: Response) => {
 app.get("/", getRoot);
 
 // application routes
-const routes = [
-  {
-    path: "/api/v1/students",
-    destination: StudentRoutes,
-  },
-  {
-    path: "/api/v1/users",
-    destination: UserRoutes,
-  },
-];
-
-routes.forEach((route) => app.use(route.path, route.destination));
+app.use("/api/v1", router);
 
 // global error handler
 app.use(globalErrorHandler);
