@@ -9,6 +9,30 @@ const createAcademicSemester = async (payload: IAcademicSemester) => {
   const result = await AcademicSemester.create(payload);
   return result;
 };
+
+const getAcademicSemesters = async () => {
+  const result = await AcademicSemester.find();
+  return result;
+};
+const getSingleAcademicSemester = async (semesterId: string) => {
+  const result = await AcademicSemester.findById({ _id: semesterId });
+  return result;
+};
+const updateSingleAcademicSemester = async (
+  semesterId: string,
+  updateData: IAcademicSemester,
+) => {
+  const result = await AcademicSemester.findByIdAndUpdate(
+    semesterId,
+    { ...updateData },
+    { new: true },
+  );
+  return result;
+};
+
 export const AcademicSemesterService = {
   createAcademicSemester,
+  getAcademicSemesters,
+  getSingleAcademicSemester,
+  updateSingleAcademicSemester,
 };

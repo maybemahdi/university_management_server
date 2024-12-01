@@ -15,6 +15,49 @@ const createAcademicSemester = catchAsync(async (req, res) => {
   });
 });
 
+const getAcademicSemesters = catchAsync(async (req, res) => {
+  const result = await AcademicSemesterService.getAcademicSemesters();
+  sendResponse(res, {
+    statusCode: result ? httpStatus.OK : httpStatus.INTERNAL_SERVER_ERROR,
+    success: !!result,
+    message: result
+      ? "Academic Semesters retrieved successfully"
+      : "Failed to retrieve Academic Semesters",
+    data: result,
+  });
+});
+
+const getSingleAcademicSemester = catchAsync(async (req, res) => {
+  const { semesterId } = req.params;
+  const result =
+    await AcademicSemesterService.getSingleAcademicSemester(semesterId);
+  sendResponse(res, {
+    statusCode: result ? httpStatus.OK : httpStatus.INTERNAL_SERVER_ERROR,
+    success: !!result,
+    message: result
+      ? "Academic Semester is retrieved successfully"
+      : "Failed to retrieve Academic Semester",
+    data: result,
+  });
+});
+
+const updateSingleAcademicSemester = catchAsync(async (req, res) => {
+  const { semesterId } = req.params;
+  const result =
+    await AcademicSemesterService.updateSingleAcademicSemester(semesterId, req.body);
+  sendResponse(res, {
+    statusCode: result ? httpStatus.OK : httpStatus.NOT_FOUND,
+    success: !!result,
+    message: result
+      ? "Academic Semester updated successfully"
+      : "No Semester found for this ID",
+    data: result,
+  });
+});
+
 export const AcademicSemesterController = {
   createAcademicSemester,
+  getAcademicSemesters,
+  getSingleAcademicSemester,
+  updateSingleAcademicSemester,
 };
