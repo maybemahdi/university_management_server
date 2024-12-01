@@ -35,22 +35,24 @@ const LocalGuardianSchema = z.object({
 });
 const objectIdValidator = z.custom((value) => Types.ObjectId.isValid(value), {
   message: "Invalid ObjectId",
-});
+}).optional();
 
 const CreateStudentValidationSchema = z.object({
-  name: NameSchema,
-  gender: z.enum(["male", "female", "other"]),
-  dateOfBirth: z.string().min(1, "Date of Birth is required"),
-  email: z.string().email("Invalid email format").min(1, "Email is required"),
-  contactNo: z.string().min(1, "Contact No is required"),
-  emergencyContactNo: z.string().min(1, "Emergency Contact No is required"),
-  presentAddress: PresentAddressSchema,
-  permanentAddress: PermanentAddressSchema,
-  guardian: GuardianSchema,
-  localGuardian: LocalGuardianSchema,
-  profileImage: z.string().min(1, "Profile Image is required"),
-  admissionSemester: objectIdValidator,
-  isDeleted: z.boolean().optional().default(false),
+  body: z.object({
+    name: NameSchema,
+    gender: z.enum(["male", "female", "other"]),
+    dateOfBirth: z.string().min(1, "Date of Birth is required"),
+    email: z.string().email("Invalid email format").min(1, "Email is required"),
+    contactNo: z.string().min(1, "Contact No is required"),
+    emergencyContactNo: z.string().min(1, "Emergency Contact No is required"),
+    presentAddress: PresentAddressSchema,
+    permanentAddress: PermanentAddressSchema,
+    guardian: GuardianSchema,
+    localGuardian: LocalGuardianSchema,
+    profileImage: z.string().min(1, "Profile Image is required"),
+    admissionSemester: objectIdValidator,
+    isDeleted: z.boolean().optional().default(false),
+  }),
 });
 
 export const StudentValidations = {

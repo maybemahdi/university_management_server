@@ -92,7 +92,7 @@ const StudentSchema = new Schema<IStudent>(
     },
     admissionSemester: {
       type: Schema.Types.ObjectId,
-      required: [true, "Admission Semester is Required"],
+      required: [false, "Admission Semester is Required"],
       unique: true,
       ref: "AcademicSemester",
     },
