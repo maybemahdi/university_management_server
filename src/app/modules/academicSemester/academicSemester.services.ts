@@ -14,14 +14,23 @@ const getAcademicSemesters = async () => {
   const result = await AcademicSemester.find();
   return result;
 };
+
 const getSingleAcademicSemester = async (semesterId: string) => {
-  const result = await AcademicSemester.findById({ _id: semesterId });
+  const result = await AcademicSemester.findById(semesterId);
   return result;
 };
+
 const updateSingleAcademicSemester = async (
   semesterId: string,
-  updateData: IAcademicSemester,
+  updateData: Partial<IAcademicSemester>,
 ) => {
+  if (
+    updateData.name &&
+    updateData.code &&
+    academicSemesterNameCodeMapper[updateData.name] !== updateData.code
+  ) {
+    throw new Error("Semester name and code didn't match");
+  }
   const result = await AcademicSemester.findByIdAndUpdate(
     semesterId,
     { ...updateData },

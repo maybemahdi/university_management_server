@@ -25,6 +25,9 @@ AcademicSemesterRoutes.get(
 
 AcademicSemesterRoutes.patch(
   "/:semesterId",
+  validateRequest(
+    AcademicSemesterValidations.UpdateAcademicSemesterValidationSchema,
+  ),
   AcademicSemesterController.updateSingleAcademicSemester,
 );
 

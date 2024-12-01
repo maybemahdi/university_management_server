@@ -63,7 +63,11 @@ const LocalGuardianSchema = new Schema<ILocalGuardian>({
 
 const StudentSchema = new Schema<IStudent>(
   {
-    id: { type: String, required: false },
+    id: {
+      type: String,
+      required: [true, "Student id is required"],
+      unique: true,
+    },
     user: {
       type: Schema.Types.ObjectId,
       required: [true, "User ID is Required"],
@@ -71,7 +75,14 @@ const StudentSchema = new Schema<IStudent>(
       ref: "User",
     },
     name: NameSchema,
-    gender: { type: String, enum: { values: ["male", "female", "other"] } },
+    gender: {
+      type: String,
+      enum: {
+        values: ["male", "female", "other"],
+        message: "Gender must be male|female|other",
+      },
+      required: [true, "Gender is Required"],
+    },
     dateOfBirth: {
       type: Date,
       required: [true, "Date of Birth is Required"],
@@ -92,8 +103,7 @@ const StudentSchema = new Schema<IStudent>(
     },
     admissionSemester: {
       type: Schema.Types.ObjectId,
-      required: [false, "Admission Semester is Required"],
-      unique: true,
+      required: [true, "Admission Semester is Required"],
       ref: "AcademicSemester",
     },
     isDeleted: { type: Boolean, default: false },

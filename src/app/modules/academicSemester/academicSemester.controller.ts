@@ -43,8 +43,10 @@ const getSingleAcademicSemester = catchAsync(async (req, res) => {
 
 const updateSingleAcademicSemester = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
-  const result =
-    await AcademicSemesterService.updateSingleAcademicSemester(semesterId, req.body);
+  const result = await AcademicSemesterService.updateSingleAcademicSemester(
+    semesterId,
+    req.body,
+  );
   sendResponse(res, {
     statusCode: result ? httpStatus.OK : httpStatus.NOT_FOUND,
     success: !!result,

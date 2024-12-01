@@ -35,7 +35,7 @@ const LocalGuardianSchema = z.object({
 });
 const objectIdValidator = z.custom((value) => Types.ObjectId.isValid(value), {
   message: "Invalid ObjectId",
-}).optional();
+});
 
 const CreateStudentValidationSchema = z.object({
   body: z.object({

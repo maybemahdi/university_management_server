@@ -5,17 +5,17 @@ import config from "../../config";
 
 const UserSchema = new Schema<IUser>(
   {
-    id: { type: String, required: false },
-    password: { type: String, required: false },
+    id: { type: String, required: [true, "Id is required"], unique: true },
+    password: { type: String, required: [true, "Password is required"] },
     needsPasswordChange: { type: Boolean, default: true },
     role: {
       type: String,
-      enum: { values: ["student", "faculty", "admin"] },
-      required: [false, "Role is required"],
+      enum: ["student", "faculty", "admin"],
+      required: [true, "Role is required"],
     },
     status: {
       type: String,
-      enum: { values: ["active", "blocked"] },
+      enum: ["active", "blocked"],
       default: "active",
     },
     isDeleted: { type: Boolean, default: false },

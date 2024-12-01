@@ -1,13 +1,20 @@
 import config from "../../config";
+import { IAcademicSemester } from "../academicSemester/academicSemester.interface";
+import { AcademicSemester } from "../academicSemester/academicSemester.model";
 import { IStudent } from "../student/student.interface";
 import { Student } from "../student/student.model";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
+import { generateStudentId } from "./user.utils";
 
 const createStudent = async (password: string, studentData: IStudent) => {
+  // generate student id before creating a user and student
+  const academicSemester = await AcademicSemester.findById(
+    studentData.admissionSemester,
+  );
   // set user id, role and password for creating a user before creating a student
   const userData: Partial<IUser> = {
-    id: "20301101", // static, but will make it generated in-future
+    id: await generateStudentId(academicSemester as IAcademicSemester),
     password: password || (config.default_student_pass as string),
     role: "student",
   };
