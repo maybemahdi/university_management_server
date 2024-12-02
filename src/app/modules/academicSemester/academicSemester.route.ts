@@ -28,7 +28,7 @@ AcademicSemesterRoutes.patch(
   validateRequest(
     AcademicSemesterValidations.UpdateAcademicSemesterValidationSchema,
   ),
-  AcademicSemesterController.updateSingleAcademicSemester,
+  AcademicSemesterController.updateAcademicSemester,
 );
 
 export default AcademicSemesterRoutes;

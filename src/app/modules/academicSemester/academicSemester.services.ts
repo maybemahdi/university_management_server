@@ -20,7 +20,7 @@ const getSingleAcademicSemester = async (semesterId: string) => {
   return result;
 };
 
-const updateSingleAcademicSemester = async (
+const updateAcademicSemester = async (
   semesterId: string,
   updateData: Partial<IAcademicSemester>,
 ) => {
@@ -43,5 +43,5 @@ export const AcademicSemesterService = {
   createAcademicSemester,
   getAcademicSemesters,
   getSingleAcademicSemester,
-  updateSingleAcademicSemester,
+  updateAcademicSemester,
 };
