@@ -12,7 +12,18 @@ const getAllStudents = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getSingleStudent = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentService.getSingleStudent(studentId);
+  sendResponse(res, {
+    statusCode: result ? httpStatus.OK : httpStatus.NOT_FOUND,
+    success: !!result,
+    message:  result ?"Student is Retrieved Successfully": "This Student doesn't exist",
+    data: result,
+  });
+});
 
 export const StudentController = {
   getAllStudents,
+  getSingleStudent,
 };
