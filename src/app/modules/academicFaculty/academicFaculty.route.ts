@@ -1,7 +1,7 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
 import { AcademicFacultyValidation } from "./academicFaculty.validation";
-import { AcademicFacultyControllers } from "./academicFaculty.controller";
+import { AcademicFacultyController } from "./academicFaculty.controller";
 
 const AcademicFacultyRoutes = Router();
 
@@ -10,17 +10,17 @@ AcademicFacultyRoutes.post(
   validateRequest(
     AcademicFacultyValidation.CreateAcademicFacultyValidationSchema,
   ),
-  AcademicFacultyControllers.createAcademicFaculty,
+  AcademicFacultyController.createAcademicFaculty,
 );
 
 AcademicFacultyRoutes.get(
   "/",
-  AcademicFacultyControllers.getAllAcademicFaculties,
+  AcademicFacultyController.getAllAcademicFaculties,
 );
 
 AcademicFacultyRoutes.get(
   "/:facultyId",
-  AcademicFacultyControllers.getSingleAcademicFaculty,
+  AcademicFacultyController.getSingleAcademicFaculty,
 );
 
 AcademicFacultyRoutes.patch(
@@ -28,7 +28,7 @@ AcademicFacultyRoutes.patch(
   validateRequest(
     AcademicFacultyValidation.UpdateAcademicFacultyValidationSchema,
   ),
-  AcademicFacultyControllers.updateAcademicFaculty,
+  AcademicFacultyController.updateAcademicFaculty,
 );
 
 export default AcademicFacultyRoutes;

@@ -59,6 +59,15 @@ AcademicSemesterSchema.pre("save", async function (next) {
   next();
 });
 
+AcademicSemesterSchema.pre("findOneAndUpdate", async function (next) {
+  const query = this.getQuery();
+  const isValidDepartment = await AcademicSemester.findOne(query);
+  if (!isValidDepartment) {
+    throw new Error("Semester does not exist");
+  }
+  next();
+});
+
 export const AcademicSemester = model<IAcademicSemester>(
   "AcademicSemester",
   AcademicSemesterSchema,

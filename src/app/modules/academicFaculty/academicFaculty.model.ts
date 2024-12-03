@@ -14,6 +14,15 @@ const AcademicFacultySchema = new Schema<IAcademicFaculty>(
   },
 );
 
+AcademicFacultySchema.pre("findOneAndUpdate", async function (next) {
+  const query = this.getQuery();
+  const isValidDepartment = await AcademicFaculty.findOne(query);
+  if (!isValidDepartment) {
+    throw new Error("Faculty does not exist");
+  }
+  next();
+});
+
 export const AcademicFaculty = model<IAcademicFaculty>(
   "AcademicFaculty",
   AcademicFacultySchema,

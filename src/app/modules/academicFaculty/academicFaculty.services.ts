@@ -26,7 +26,7 @@ const updateAcademicFaculty = async (
   return result;
 };
 
-export const AcademicFacultyServices = {
+export const AcademicFacultyService = {
   createAcademicFaculty,
   getAllAcademicFaculties,
   getSingleAcademicFaculty,
