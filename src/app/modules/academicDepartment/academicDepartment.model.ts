@@ -1,5 +1,7 @@
 import { model, Schema } from "mongoose";
 import { IAcademicDepartment } from "./academicDepartment.interface";
+import AppError from "../../errors/AppError";
+import httpStatus from "http-status";
 
 const AcademicDepartmentSchema = new Schema<IAcademicDepartment>(
   {
@@ -11,6 +13,7 @@ const AcademicDepartmentSchema = new Schema<IAcademicDepartment>(
     academicFaculty: {
       type: Schema.Types.ObjectId,
       required: [true, "Academic Faculty is required"],
+      ref: "AcademicFaculty",
     },
   },
   { timestamps: true },
@@ -21,7 +24,7 @@ AcademicDepartmentSchema.pre("save", async function (next) {
     name: this.name,
   });
   if (isDepartmentExist) {
-    throw new Error("Department already exists");
+    throw new AppError(httpStatus.NOT_ACCEPTABLE,"Department already exists");
   }
   next();
 });
@@ -30,7 +33,7 @@ AcademicDepartmentSchema.pre("findOneAndUpdate", async function (next) {
   const query = this.getQuery();
   const isValidDepartment = await AcademicDepartment.findOne(query);
   if (!isValidDepartment) {
-    throw new Error("Department does not exist");
+    throw new AppError(httpStatus.NOT_FOUND, "This Department does not exist!");
   }
   next();
 });

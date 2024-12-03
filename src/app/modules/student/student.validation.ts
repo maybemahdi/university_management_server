@@ -50,6 +50,7 @@ const CreateStudentValidationSchema = z.object({
     guardian: GuardianSchema,
     localGuardian: LocalGuardianSchema,
     profileImage: z.string().min(1, "Profile Image is required"),
+    academicDepartment: objectIdValidator,
     admissionSemester: objectIdValidator,
     isDeleted: z.boolean().optional().default(false),
   }),

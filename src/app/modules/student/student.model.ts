@@ -101,6 +101,11 @@ const StudentSchema = new Schema<IStudent>(
       type: String,
       required: [true, "Profile Image is Required"],
     },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      required: [true, "Academic Department is Required"],
+      ref: "AcademicDepartment",
+    },
     admissionSemester: {
       type: Schema.Types.ObjectId,
       required: [true, "Admission Semester is Required"],
