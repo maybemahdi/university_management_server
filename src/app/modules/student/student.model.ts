@@ -116,4 +116,19 @@ const StudentSchema = new Schema<IStudent>(
   { timestamps: true },
 );
 
+// Query Middleware
+StudentSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+StudentSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+StudentSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
 export const Student = model<IStudent>("Student", StudentSchema);
