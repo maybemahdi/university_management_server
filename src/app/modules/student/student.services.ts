@@ -11,8 +11,19 @@ import { User } from "../user/user.model";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 
-const getAllStudents = async () => {
-  const result = await Student.find()
+const getAllStudents = async (query: Record<string, unknown>) => {
+  const searchTerm = query?.searchTerm ? (query.searchTerm as string) : "";
+  const fields = [
+    "name.firstName",
+    "name.middleName",
+    "name.lastName",
+    "email",
+  ];
+  const result = await Student.find({
+    $or: fields.map((field) => ({
+      [field]: { $regex: searchTerm, $options: "i" },
+    })),
+  })
     .populate({
       path: "academicDepartment",
       populate: {

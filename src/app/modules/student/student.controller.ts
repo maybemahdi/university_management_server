@@ -4,7 +4,7 @@ import { StudentService } from "./student.services";
 import httpStatus from "http-status";
 
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await StudentService.getAllStudents();
+  const result = await StudentService.getAllStudents(req.query);
   sendResponse(res, {
     statusCode: result ? httpStatus.OK : httpStatus.INTERNAL_SERVER_ERROR,
     success: !!result,
